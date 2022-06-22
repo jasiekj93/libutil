@@ -8,7 +8,7 @@
  * @details
 **/
 
-namespace Utils::Static
+namespace util::stat
 {
 	template <class Type, size_t SIZE>
 	List<Type, SIZE>::List()
@@ -19,7 +19,7 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	const Type* List<Type, SIZE>::Front() const
+	const Type* List<Type, SIZE>::front() const
 	{
 		if (_head != nullptr)
 			return &_head->object;
@@ -28,7 +28,7 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	const Type* List<Type, SIZE>::Back() const
+	const Type* List<Type, SIZE>::back() const
 	{
 		if (_tail != nullptr)
 			return &_tail->object;
@@ -37,9 +37,9 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	bool List<Type, SIZE>::PushFront(const Type & object)
+	bool List<Type, SIZE>::pushFront(const Type & object)
 	{
-		Node *newNode = _GetFreeNode();
+		Node *newNode = _getFreeNode();
 
 		if (newNode == nullptr)
 			return false;
@@ -64,9 +64,9 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	bool List<Type, SIZE>::PushBack(const Type & object)
+	bool List<Type, SIZE>::pushBack(const Type & object)
 	{
-		Node *newNode = _GetFreeNode();
+		Node *newNode = _getFreeNode();
 
 		if (newNode == nullptr)
 			return false;
@@ -90,7 +90,7 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	bool List<Type, SIZE>::PopFront()
+	bool List<Type, SIZE>::popFront()
 	{
 		if (_head == nullptr)
 			return false;
@@ -113,7 +113,7 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	bool List<Type, SIZE>::PopBack()
+	bool List<Type, SIZE>::popBack()
 	{
 		if (_tail == nullptr)
 			return false;
@@ -144,7 +144,7 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	void List<Type, SIZE>::Clear()
+	void List<Type, SIZE>::clear()
 	{
 		for (uint32_t i = 0; i < SIZE; i++)
 		{
@@ -156,7 +156,7 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	Type * List<Type, SIZE>::operator[](uint32_t index)
+	Type * List<Type, SIZE>::operator[](size_t index)
 	{
 		if (index > _count)
 			return nullptr;
@@ -176,15 +176,15 @@ namespace Utils::Static
 	}
 
 	template <class Type, size_t SIZE>
-	typename List<Type, SIZE>::Node * List<Type, SIZE>::_GetFreeNode()
+	typename List<Type, SIZE>::Node * List<Type, SIZE>::_getFreeNode()
 	{
-		uint32_t i = 0;
-		while (i < SIZE && _nodes[i].isFree == false)
-			i++;
+        auto result = std::find_if(_nodes.begin(),
+            _nodes.end(),
+            [](const Node& node) { return (node.isFree == true); });
 
-		if (i == SIZE)
-			return nullptr;
-		else
-			return &_nodes[i];
+        if(result == _nodes.end())
+            return nullptr;
+        else
+            return result;
 	}
 }

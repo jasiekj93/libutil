@@ -1,7 +1,6 @@
 #pragma once
-#include <libutil/Copy.hpp>
 
-namespace Utils
+namespace util
 {
 	template<typename T>
 	Buffer<T>::Buffer(size_t size)
@@ -15,14 +14,14 @@ namespace Utils
 	template<typename T>
 	bool Buffer<T>::add(const Span<T> &buffer)
 	{
-		if (buffer.data == nullptr)
+		if (buffer.data() == nullptr)
 			return false;
 
-		if ((_count + buffer.size) > _size)
+		if ((_count + buffer.size()) > _size)
 			return false;
 
-		for (size_t i = 0; i < buffer.size; i++)
-			_data[_count++] = buffer.data[i];
+		for (size_t i = 0; i < buffer.size(); i++)
+			_data[_count++] = buffer[i];
 
 		return true;
 	}
@@ -69,7 +68,9 @@ namespace Utils
 		if (endPosition > _count)
 			return false;
 
-        move<T>(&_data[startPosition], &_data[endPosition], _count - endPosition);
+        std::copy(_data.get() + endPosition, 
+            _data.get() + _count, 
+            _data.get() + startPosition);
 
 		_count -= size;
 		return true;
@@ -78,15 +79,18 @@ namespace Utils
 	template<typename T>
 	bool Buffer<T>::insert(size_t index, const Span<T> &span)
 	{
-		if((_count + span.size) > _size)
+		if((_count + span.size()) > _size)
 			return false;
 
 		if (index > _count)
 			return false;
 
-		move<T>(&_data[index + span.size], &_data[index], _count - index);	
-		copy<T>(&_data[index], span.data, span.size);
-		_count += span.size;
+        std::copy(_data.get() + index, 
+            _data.get() + _count, 
+            _data.get() + index + span.size());
+
+        std::copy(span.begin(), span.end(), _data.get() + index);
+		_count += span.size();
 
 		return true;
 	}
@@ -94,13 +98,15 @@ namespace Utils
 	template<typename T>
 	bool Buffer<T>::insert(size_t index, const T &object)
 	{
-		if(isFull() == true)
+		if(isFull())
 			return false;
 
 		if (index >= _count)
 			return false;
 
-		move<T>(&_data[index+1], &_data[index], _count - index);	
+        std::copy(_data.get() + index, 
+            _data.get() + _count, 
+            _data.get() + index + 1);
 		_data[index] = object;
 		_count++;
 		return true;

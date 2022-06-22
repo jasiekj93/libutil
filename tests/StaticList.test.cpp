@@ -6,14 +6,14 @@
  * @details
  */
 
-#include <libUtils/Static/List.hpp>
+#include <libutil/stat/List.hpp>
 
 #include <CppUTest/CommandLineTestRunner.h>
 
-using namespace Utils;
+using namespace util;
 
 static constexpr size_t SIZE = 5;
-using TestList = Static::List<int, SIZE>;
+using TestList = stat::List<int, SIZE>;
 
 
 TEST_GROUP(StaticListTest)
@@ -24,11 +24,11 @@ TEST(StaticListTest, Empty)
 {
     TestList list;
 
-    CHECK_EQUAL(SIZE, list.Size());
-    CHECK_EQUAL(0, list.Count());
-    CHECK(list.IsEmpty());
-    CHECK_FALSE(list.IsNotEmpty());
-    CHECK_FALSE(list.IsFull());
+    CHECK_EQUAL(SIZE, list.size());
+    CHECK_EQUAL(0, list.count());
+    CHECK(list.isEmpty());
+    CHECK_FALSE(list.isNotEmpty());
+    CHECK_FALSE(list.isFull());
 }
 
 TEST(StaticListTest, PushBack_OneItem)
@@ -36,12 +36,12 @@ TEST(StaticListTest, PushBack_OneItem)
     TestList list;
     int value = 5;
 
-    CHECK(list.PushBack(value));
+    CHECK(list.pushBack(value));
 
-    CHECK_EQUAL(1, list.Count());
-    CHECK_FALSE(list.IsEmpty());
-    CHECK(list.IsNotEmpty());
-    CHECK_FALSE(list.IsFull());
+    CHECK_EQUAL(1, list.count());
+    CHECK_FALSE(list.isEmpty());
+    CHECK(list.isNotEmpty());
+    CHECK_FALSE(list.isFull());
     CHECK_EQUAL(value, *list[0]);
     CHECK(nullptr == list[1]);
 }
@@ -52,13 +52,13 @@ TEST(StaticListTest, PushBack_TwoItems)
     int value1 = 5;
     int value2 = 10;
 
-    CHECK(list.PushBack(value1));
-    CHECK(list.PushBack(value2));
+    CHECK(list.pushBack(value1));
+    CHECK(list.pushBack(value2));
 
-    CHECK_EQUAL(2, list.Count());
-    CHECK_FALSE(list.IsEmpty());
-    CHECK(list.IsNotEmpty());
-    CHECK_FALSE(list.IsFull());
+    CHECK_EQUAL(2, list.count());
+    CHECK_FALSE(list.isEmpty());
+    CHECK(list.isNotEmpty());
+    CHECK_FALSE(list.isFull());
     CHECK_EQUAL(value1, *list[0]);
     CHECK_EQUAL(value2, *list[1]);
     CHECK(nullptr == list[2]);
@@ -70,14 +70,14 @@ TEST(StaticListTest, PushBack_MoreThanCount)
     int value = 5;
 
     for(size_t i = 0; i < SIZE; i++)
-        CHECK(list.PushBack(value++));
+        CHECK(list.pushBack(value++));
     
-    CHECK_FALSE(list.PushBack(value));
+    CHECK_FALSE(list.pushBack(value));
 
-    CHECK_EQUAL(SIZE, list.Count());
-    CHECK_FALSE(list.IsEmpty());
-    CHECK(list.IsNotEmpty());
-    CHECK(list.IsFull());
+    CHECK_EQUAL(SIZE, list.count());
+    CHECK_FALSE(list.isEmpty());
+    CHECK(list.isNotEmpty());
+    CHECK(list.isFull());
 }
 
 TEST(StaticListTest, PushFront_OneItem)
@@ -85,12 +85,12 @@ TEST(StaticListTest, PushFront_OneItem)
     TestList list;
     int value = 5;
 
-    CHECK(list.PushFront(value));
+    CHECK(list.pushFront(value));
 
-    CHECK_EQUAL(1, list.Count());
-    CHECK_FALSE(list.IsEmpty());
-    CHECK(list.IsNotEmpty());
-    CHECK_FALSE(list.IsFull());
+    CHECK_EQUAL(1, list.count());
+    CHECK_FALSE(list.isEmpty());
+    CHECK(list.isNotEmpty());
+    CHECK_FALSE(list.isFull());
     CHECK_EQUAL(value, *list[0]);
     CHECK(nullptr == list[1]);
 }
@@ -101,13 +101,13 @@ TEST(StaticListTest, PushFront_TwoItems)
     int value1 = 5;
     int value2 = 10;
 
-    CHECK(list.PushFront(value1));
-    CHECK(list.PushFront(value2));
+    CHECK(list.pushFront(value1));
+    CHECK(list.pushFront(value2));
 
-    CHECK_EQUAL(2, list.Count());
-    CHECK_FALSE(list.IsEmpty());
-    CHECK(list.IsNotEmpty());
-    CHECK_FALSE(list.IsFull());
+    CHECK_EQUAL(2, list.count());
+    CHECK_FALSE(list.isEmpty());
+    CHECK(list.isNotEmpty());
+    CHECK_FALSE(list.isFull());
     CHECK_EQUAL(value2, *list[0]);
     CHECK_EQUAL(value1, *list[1]);
     CHECK(nullptr == list[2]);
@@ -119,14 +119,14 @@ TEST(StaticListTest, PushFront_MoreThanCount)
     int value = 5;
 
     for(size_t i = 0; i < SIZE; i++)
-        CHECK(list.PushFront(value++));
-    
-    CHECK_FALSE(list.PushFront(value));
+        CHECK(list.pushFront(value++));
+  
+    CHECK_FALSE(list.pushFront(value));
 
-    CHECK_EQUAL(SIZE, list.Count());
-    CHECK_FALSE(list.IsEmpty());
-    CHECK(list.IsNotEmpty());
-    CHECK(list.IsFull());
+    CHECK_EQUAL(SIZE, list.count());
+    CHECK_FALSE(list.isEmpty());
+    CHECK(list.isNotEmpty());
+    CHECK(list.isFull());
 }
 
 TEST(StaticListTest, PopBack_OneItem)
@@ -134,13 +134,13 @@ TEST(StaticListTest, PopBack_OneItem)
     TestList list;
     int value = 5;
 
-    list.PushBack(value);
+    list.pushBack(value);
 
-    CHECK(list.PopBack());
-    CHECK_FALSE(list.PopBack());
+    CHECK(list.popBack());
+    CHECK_FALSE(list.popBack());
 
-    CHECK_EQUAL(0, list.Count());
-    CHECK(list.IsEmpty());
+    CHECK_EQUAL(0, list.count());
+    CHECK(list.isEmpty());
     CHECK(nullptr == list[0]);
 }
 
@@ -149,11 +149,11 @@ TEST(StaticListTest, PopBack_AndPush)
     TestList list;
     int value = 5;
 
-    list.PushBack(value);
-    CHECK(list.PopBack());
-    CHECK(list.PushBack(value+1));
+    list.pushBack(value);
+    CHECK(list.popBack());
+    CHECK(list.pushBack(value+1));
 
-    CHECK_EQUAL(1, list.Count());
+    CHECK_EQUAL(1, list.count());
     CHECK_EQUAL((value + 1), *list[0]);
 }
 
@@ -162,13 +162,13 @@ TEST(StaticListTest, PopFront_OneItem)
     TestList list;
     int value = 5;
 
-    list.PushBack(value);
+    list.pushBack(value);
 
-    CHECK(list.PopFront());
-    CHECK_FALSE(list.PopFront());
+    CHECK(list.popFront());
+    CHECK_FALSE(list.popFront());
 
-    CHECK_EQUAL(0, list.Count());
-    CHECK(list.IsEmpty());
+    CHECK_EQUAL(0, list.count());
+    CHECK(list.isEmpty());
     CHECK(nullptr == list[0]);
 }
 
@@ -177,10 +177,10 @@ TEST(StaticListTest, PopFront_AndPush)
     TestList list;
     int value = 5;
 
-    list.PushBack(value);
-    CHECK(list.PopFront());
-    CHECK(list.PushBack(value+1));
+    list.pushBack(value);
+    CHECK(list.popFront());
+    CHECK(list.pushBack(value+1));
 
-    CHECK_EQUAL(1, list.Count());
+    CHECK_EQUAL(1, list.count());
     CHECK_EQUAL((value + 1), *list[0]);
 }

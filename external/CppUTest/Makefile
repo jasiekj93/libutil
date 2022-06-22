@@ -37,7 +37,7 @@ HEX = $(CP) -O ihex
 BIN = $(CP) -O binary -S
 
 # mcu definition
-ifeq ($(PLATFORM), Win32)
+ifeq ($(PLATFORM), Pc32)
 MCU = -m32
 else
 CPU = -mcpu=cortex-m7

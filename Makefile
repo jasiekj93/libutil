@@ -4,7 +4,7 @@
 # ------------------------------------------------
 
 # Target
-TARGET = libUtils
+TARGET = libutil
 PLATFORM = ARM
 
 ifeq ($(PLATFORM), Pc32)
@@ -51,7 +51,8 @@ endif
 
 # sources 
 CXX_SOURCES =  \
-$(wildcard libUtils/*.cpp) \
+$(wildcard $(TARGET)/*.cpp) \
+$(wildcard $(TARGET)/stat/*.cpp) \
 
 # includes
 CXX_INCLUDES =  \

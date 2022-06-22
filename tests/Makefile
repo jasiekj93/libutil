@@ -4,7 +4,7 @@
 # ------------------------------------------------
 
 # Target
-TARGET = testUtils
+TARGET = testutil
 
 # debug
 DEBUG = 1
@@ -22,12 +22,12 @@ LIBRARY_INCLUDES = \
 -I$(TEST_LIB_DIR)/include \
 
 LIBRARY_FLAGS = \
--lUtilsWin32\
+-lutilPc32\
 -lCppUTest \
 
 LIBRARY_SEARCH_PATH = \
 -L$(LIB_DIR) \
--L$(TEST_LIB_DIR)/lib/Win32 \
+-L$(TEST_LIB_DIR)/lib/Pc32 \
 
 # toolchain
 CXX = g++
