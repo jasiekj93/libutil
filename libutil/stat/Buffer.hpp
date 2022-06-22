@@ -44,13 +44,13 @@ namespace util::stat
 		inline bool isEmpty() const { return (_count == 0); }
 		inline bool isNotEmpty() const { return (_count != 0); }
 
-		inline const T & operator[](size_t i) const { return _data[i]; }
-		inline T & begin() { return _data[0]; }
-		inline T & end() { return _data[_count]; }
-		inline const T & cbegin() const { return _data[0]; }
-		inline const T & cend() const { return _data[_count]; }
-        constexpr const T & front() const { return _data[0]; }
-        constexpr const T & back() const { return _data[_count - 1]; }
+		inline const T& operator[](size_t i) const { return _data[i]; }
+		inline T* begin() { return _data[0]; }
+		inline T* end() { return _data[_count]; }
+		inline const T* cbegin() const { return _data[0]; }
+		inline const T* cend() const { return _data[_count]; }
+        constexpr const T& front() const { return _data[0]; }
+        constexpr const T& back() const { return _data[_count - 1]; }
 
 	private:
 		T _data[SIZE];
