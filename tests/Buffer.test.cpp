@@ -166,3 +166,18 @@ TEST(BufferTest, ShiftLeft)
     CHECK_EQUAL(5, buffer[0]);
     CHECK_EQUAL(25, buffer[1]);
 }
+
+TEST(BufferTest, SBuffer_Test)
+{
+    SBuffer<byte, SIZE> buffer;
+    byte items[] = { 5, 15 };
+    byte inserted = 10;
+
+    buffer.add(items, 2);
+    CHECK(buffer.insert(1, inserted));
+
+    CHECK_EQUAL(3, buffer.count());
+    CHECK_EQUAL(5, buffer[0]);
+    CHECK_EQUAL(10, buffer[1]);
+    CHECK_EQUAL(15, buffer[2]);
+}
