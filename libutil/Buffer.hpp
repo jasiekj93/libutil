@@ -8,8 +8,7 @@
  * @details
 **/
 
-#include <libutil/Container.hpp>
-#include <libutil/Span.hpp>
+#include <libutil/Array.hpp>
 
 namespace util
 {
@@ -32,37 +31,39 @@ namespace util
 		bool insert(size_t index, const T &);
 		bool insert(size_t index, const T *, size_t);
 
-		inline void clear() { _count = 0; }
+		constexpr void clear() { _count = 0; }
 		void deepClear();
 		bool shrink(size_t size);
 		bool shiftLeft(size_t startPosition, size_t count);
 
-		inline const T* data() const { return _storage.data(); }
-		inline T* data() { return _storage.data(); }
-		inline T* data(size_t i) { return _storage.data() + i; }
-		inline auto count() const { return _count; }
-		inline auto capacity() const { return _storage.size(); }
-		inline bool isFull() const { return (_count == _storage.size()); }
-		inline bool isEmpty() const { return (_count == 0); }
-		inline bool isNotEmpty() const { return (_count != 0); }
-		inline Span<T> toSpan() const { return Span<T>{ _storage.data(), _count }; }
+		constexpr auto data() const { return _storage.data(); }
+		constexpr auto data() { return _storage.data(); }
+		constexpr auto data(size_t i) const { return _storage.data() + i; }
+		constexpr auto count() const { return _count; }
+		constexpr auto capacity() const { return _storage.size(); }
+		constexpr auto size() const { return _storage.size(); }
+		constexpr bool isFull() const { return (_count == _storage.size()); }
+		constexpr bool isEmpty() const { return (_count == 0); }
+		constexpr bool isNotEmpty() const { return (_count != 0); }
+		constexpr auto toSpan() const { return _storage.toSpan(); }
 
-		inline const T& operator[](size_t i) const { return _storage[i]; }
-		inline T* begin() { return _storage[0]; }
-		inline T* end() { return _storage[_count]; }
-		inline const T* cbegin() const { return _storage[0]; }
-		inline const T* cend() const { return _storage[_count]; }
+		constexpr auto operator[](size_t i) const { return _storage[i]; }
+		constexpr auto operator[](size_t i) { return _storage[i]; }
+		constexpr auto begin() { return _storage.begin(); }
+		constexpr auto end() { return _storage.end(); }
+		constexpr auto cbegin() const { return _storage.cbegin(); }
+		constexpr auto cend() const { return _storage.cend(); }
 
 	private:
-	 	Container _storage;
+        Container _storage;
 		size_t _count;
 	};
 
 	template<class T>
-	using Buffer = BufferBase<T, DynamicContainer<T>>;
+	using Buffer = BufferBase<T, DynArray<T>>;
 
 	template<class T, size_t S>
-	using SBuffer = BufferBase<T, StaticContainer<T, S>>;
+	using SBuffer = BufferBase<T, Array<T, S>>;
 
     template<class T>
     using Vector = Buffer<T>;
