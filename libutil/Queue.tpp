@@ -2,24 +2,24 @@
 
 namespace util
 {
-	template<typename T>
-	Queue<T>::Queue(size_t size)
+	template<typename T, class B>
+	QueueBase<T, B>::QueueBase(size_t size)
 		: _buffer(size)
 	{
 	}
 
-	template<typename T>
-	size_t Queue<T>::dequeueAllTo(T *destination)
+	template<typename T, class B>
+	size_t QueueBase<T, B>::dequeueAllTo(T *destination)
 	{
-		size_t result = _buffer.Count();
+		size_t result = _buffer.count();
 		if (this->dequeueTo(destination, _buffer.count()))
 			return result;
 		else
 			return UINT32_MAX;
 	}
 
-	template<typename T>
-	size_t Queue<T>::dequeueAllTo(Buffer<T> &destination)
+	template<typename T, class B>
+	size_t QueueBase<T, B>::dequeueAllTo(B &destination)
 	{
 		size_t size = _buffer.count();
 		bool result = destination.add({_buffer.data(), size});
@@ -30,16 +30,16 @@ namespace util
 			return UINT32_MAX;
 	}
 
-	template<typename T>
-	size_t Queue<T>::dequeueAll()
+	template<typename T, class B>
+	size_t QueueBase<T, B>::dequeueAll()
 	{
 		size_t result = _buffer.count();
 		this->dequeue(_buffer.count());
 		return result;
 	}
 
-	template<typename T>
-	bool Queue<T>::dequeueTo(T *destination, size_t count)
+	template<typename T, class B>
+	bool QueueBase<T, B>::dequeueTo(T *destination, size_t count)
 	{
 		if (count > _buffer.count())
 			return false;
@@ -47,22 +47,22 @@ namespace util
 		if (destination == nullptr)
 			return false;
 
-        copy<T>(destination, _buffer.data(), count);
-		_buffer.ShiftLeft(0, count);
+        std::copy(_buffer.begin(), _buffer.begin() + count, destination);
+		_buffer.shiftLeft(0, count);
 
 		return true;
 	}
 
-	template<typename T>
-	T Queue<T>::popBack()
+	template<typename T, class B>
+	T QueueBase<T, B>::popBack()
 	{
 		auto result = back();
 		_buffer.shrink(1);
 		return result;
 	}
 
-	template<typename T>
-	T Queue<T>::popFront()
+	template<typename T, class B>
+	T QueueBase<T, B>::popFront()
 	{
 		auto result = front();
 		_buffer.shiftLeft(0, 1);

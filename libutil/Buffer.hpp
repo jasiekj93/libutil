@@ -49,6 +49,10 @@ namespace util
 
 		constexpr auto operator[](size_t i) const { return _storage[i]; }
 		constexpr auto operator[](size_t i) { return _storage[i]; }
+        constexpr auto& front() { return _storage.front(); }
+        constexpr auto& front() const { return _storage.front(); }
+        constexpr auto& back() { return _storage[_count - 1]; }
+        constexpr auto& back() const { return _storage[_count - 1]; }
 		constexpr auto begin() { return _storage.begin(); }
 		constexpr auto end() { return _storage.end(); }
 		constexpr auto cbegin() const { return _storage.cbegin(); }
