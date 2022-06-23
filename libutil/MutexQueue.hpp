@@ -13,30 +13,36 @@
 
 namespace util
 {
-	template<typename T>
-	class MutexQueue : public Queue<T>
+	template<typename T, class Buffer>
+	class MutexQueueBase : public QueueBase<T, Buffer>
 	{
 	public:
-		MutexQueue(size_t);
+		explicit MutexQueueBase(size_t);
 
-		bool enqueue(const T &element) override;
-		bool enqueue(const Span<T> &buffer) override;
-		bool dequeueTo(T *, size_t count) override;
-		size_t dequeueAllTo(T *) override;
-		size_t dequeueAllTo(Buffer<T> &destination) override;
+		bool enqueue(const T&) override;
+		bool enqueue(const Span<T>&) override;
+		bool dequeueTo(T*, size_t count) override;
+		size_t dequeueAllTo(T*) override;
+		size_t dequeueAllTo(Buffer&) override;
 		
-		bool tryEnqueue(const T &element);
-		bool tryEnqueue(const Span<T> &buffer);
-		bool tryDequeueTo(T *, size_t count);
-		bool tryDequeueAllTo(T *);
+		bool tryEnqueue(const T&);
+		bool tryEnqueue(const Span<T>&);
+		bool tryDequeueTo(T*, size_t count);
+		bool tryDequeueAllTo(T*);
 
 	protected:
 		T operator[](size_t index) { return 0; }
-		T * getData(size_t index) override { return nullptr; }
+		const T* data(size_t index) const override { return nullptr; }
 
 	private:
 		std::mutex _mutex;
 	};
+
+    template<typename T>
+    using MutexQueue = MutexQueueBase<T, Buffer<T>>;
+
+    template<typename T, size_t SIZE>
+    using SMutexQueue = MutexQueueBase<T, SBuffer<T, SIZE>>;
 }
 
 #include <libutil/MutexQueue.tpp>

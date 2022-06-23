@@ -2,110 +2,110 @@
 
 namespace util
 {
-	template<typename T>
-	MutexQueue<T>::MutexQueue(size_t size)
-		: Queue(size)
+	template<typename T, class B>
+	MutexQueueBase<T, B>::MutexQueueBase(size_t size)
+		: QueueBase<T, B>(size)
 		, _mutex()
 	{
 	}
 
-	template<typename T>
-	bool MutexQueue<T>::Enqueue(const Span<T> &buffer)
+	template<typename T, class B>
+	bool MutexQueueBase<T, B>::enqueue(const Span<T> &buffer)
 	{
 		_mutex.lock();
-		auto result = Queue::enqueue(buffer);
+		auto result = QueueBase<T, B>::enqueue(buffer);
 		_mutex.unlock();
 
 		return result;
 	}
 
-	template<typename T>	
-	bool MutexQueue<T>::enqueue(const T &element)
+	template<typename T, class B>	
+	bool MutexQueueBase<T, B>::enqueue(const T &element)
 	{
 		_mutex.lock();
-		auto result = Queue::enqueue(element);
+		auto result = QueueBase<T, B>::enqueue(element);
 		_mutex.unlock();
 
 		return result;
 	}
 
-	template<typename T>
-	size_t MutexQueue<T>::dequeueAllTo(T *destination)
+	template<typename T, class B>
+	size_t MutexQueueBase<T, B>::dequeueAllTo(T *destination)
 	{
 		_mutex.lock();
-		auto result = Queue::dequeueAllTo(destination);
+		auto result = QueueBase<T, B>::dequeueAllTo(destination);
 		_mutex.unlock();
 
 		return result;
 	}
 
-	template<typename T>
-	size_t MutexQueue<T>::dequeueAllTo(Buffer<T> &destination)
+	template<typename T, class B>
+	size_t MutexQueueBase<T, B>::dequeueAllTo(B &destination)
 	{
 		_mutex.lock();
-		auto result = Queue::dequeueAllTo(destination);
+		auto result = QueueBase<T, B>::dequeueAllTo(destination);
 		_mutex.unlock();
 
 		return result;
 	}
 
-	template<typename T>
-	bool MutexQueue<T>::dequeueTo(T *destination, size_t count)
+	template<typename T, class B>
+	bool MutexQueueBase<T, B>::dequeueTo(T *destination, size_t count)
 	{
 		_mutex.lock();
-		bool result = Queue::dequeueTo(destination, count);
+		bool result = QueueBase<T, B>::dequeueTo(destination, count);
 		_mutex.unlock();
 
 		return result;
 	}
 
-	template<typename T>	
-	bool MutexQueue<T>::tryEnqueue(const Span<T> &buffer)
+	template<typename T, class B>	
+	bool MutexQueueBase<T, B>::tryEnqueue(const Span<T> &buffer)
 	{
 		bool result;
 
 		if (_mutex.try_lock() == false)
 			return false;
 
-		result = Queue::enqueue(buffer);
+		result = QueueBase<T, B>::enqueue(buffer);
 		_mutex.unlock();
 
 		return result;
 	}
 
-	template<typename T>
-	bool MutexQueue<T>::tryEnqueue(const T &element)
+	template<typename T, class B>
+	bool MutexQueueBase<T, B>::tryEnqueue(const T &element)
 	{
 		bool result;
 
 		if (_mutex.try_lock() == false)
 			return false;
 
-		result = Queue::enqueue(element);
+		result = QueueBase<T, B>::enqueue(element);
 		_mutex.unlock();
 
 		return result;
 	}
 
-	template<typename T>
-	bool MutexQueue<T>::tryDequeueAllTo(T *destination)
+	template<typename T, class B>
+	bool MutexQueueBase<T, B>::tryDequeueAllTo(T *destination)
 	{
 		if (_mutex.try_lock() == false)
 			return false;
 
-		Queue::dequeueAllTo(destination);
+		QueueBase<T, B>::dequeueAllTo(destination);
 		_mutex.unlock();
 
 		return true;
 	}
 
-	template<typename T>
-	bool MutexQueue<T>::tryDequeueTo(T *destination, size_t count)
+	template<typename T, class B>
+	bool MutexQueueBase<T, B>::tryDequeueTo(T *destination, size_t count)
 	{
 		if (_mutex.try_lock() == false)
 			return false;
 
-		bool result = Queue::dequeueTo(destination, count);
+		bool result = QueueBase<T, B>::dequeueTo(destination, count);
 		_mutex.unlock();
 
 		return result;
