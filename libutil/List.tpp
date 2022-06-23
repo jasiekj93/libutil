@@ -8,18 +8,19 @@
  * @details
 **/
 
-namespace util::stat
+namespace util
 {
-	template <class Type, size_t SIZE>
-	List<Type, SIZE>::List()
+	template <class Type, class C>
+	ListBase<Type, C>::ListBase()
+        : _nodes((size_t)0)
 	{
 		_head = nullptr;
 		_tail = nullptr;
 		_count = 0;
 	}
 
-	template <class Type, size_t SIZE>
-	const Type* List<Type, SIZE>::front() const
+	template <class Type, class C>
+	const Type* ListBase<Type, C>::front() const
 	{
 		if (_head != nullptr)
 			return &_head->object;
@@ -27,8 +28,8 @@ namespace util::stat
 			return nullptr;
 	}
 
-	template <class Type, size_t SIZE>
-	const Type* List<Type, SIZE>::back() const
+	template <class Type, class C>
+	const Type* ListBase<Type, C>::back() const
 	{
 		if (_tail != nullptr)
 			return &_tail->object;
@@ -36,10 +37,10 @@ namespace util::stat
 			return nullptr;
 	}
 
-	template <class Type, size_t SIZE>
-	bool List<Type, SIZE>::pushFront(const Type & object)
+	template <class Type, class C>
+	bool ListBase<Type, C>::pushFront(const Type & object)
 	{
-		Node *newNode = _getFreeNode();
+		auto newNode = _getFreeNode();
 
 		if (newNode == nullptr)
 			return false;
@@ -63,10 +64,10 @@ namespace util::stat
 		return true;
 	}
 
-	template <class Type, size_t SIZE>
-	bool List<Type, SIZE>::pushBack(const Type & object)
+	template <class Type, class C>
+	bool ListBase<Type, C>::pushBack(const Type & object)
 	{
-		Node *newNode = _getFreeNode();
+		auto newNode = _getFreeNode();
 
 		if (newNode == nullptr)
 			return false;
@@ -89,13 +90,13 @@ namespace util::stat
 		return true;
 	}
 
-	template <class Type, size_t SIZE>
-	bool List<Type, SIZE>::popFront()
+	template <class Type, class C>
+	bool ListBase<Type, C>::popFront()
 	{
 		if (_head == nullptr)
 			return false;
 
-		Node *tmp = _head;
+	    auto* tmp = _head;
 
 		if (_head == _tail)
 		{
@@ -112,13 +113,13 @@ namespace util::stat
 		return true;
 	}
 
-	template <class Type, size_t SIZE>
-	bool List<Type, SIZE>::popBack()
+	template <class Type, class C>
+	bool ListBase<Type, C>::popBack()
 	{
 		if (_tail == nullptr)
 			return false;
 
-		Node *tmp = _tail;
+		auto* tmp = _tail;
 
 		if (_head == _tail)
 		{
@@ -127,7 +128,7 @@ namespace util::stat
 		}
 		else
 		{
-			Node *tmp2 = _head;
+			auto* tmp2 = _head;
 
 			while (tmp2->next != _tail)
 				tmp2 = tmp2->next;
@@ -143,27 +144,27 @@ namespace util::stat
 		return true;
 	}
 
-	template <class Type, size_t SIZE>
-	void List<Type, SIZE>::clear()
+	template <class Type, class C>
+	void ListBase<Type, C>::clear()
 	{
-		for (uint32_t i = 0; i < SIZE; i++)
+		for (auto &node : _nodes)
 		{
-			_nodes[i].next = nullptr;
-			_nodes[i].isFree = true;
+			node.next = nullptr;
+			node.isFree = true;
 		}
 
 		_count = 0;
 	}
 
-	template <class Type, size_t SIZE>
-	Type * List<Type, SIZE>::operator[](size_t index)
+	template <class Type, class C>
+	Type * ListBase<Type, C>::operator[](size_t index)
 	{
 		if (index > _count)
 			return nullptr;
 
-		Node *tmp = _head;
+		auto* tmp = _head;
 
-		uint32_t i = 0;
+		size_t i = 0;
 		while (tmp != nullptr && i < index)
 		{
 			i++;
@@ -175,12 +176,12 @@ namespace util::stat
 			return &tmp->object;
 	}
 
-	template <class Type, size_t SIZE>
-	typename List<Type, SIZE>::Node * List<Type, SIZE>::_getFreeNode()
+	template <class Type, class C>
+	Node<Type> * ListBase<Type, C>::_getFreeNode()
 	{
         auto result = std::find_if(_nodes.begin(),
             _nodes.end(),
-            [](const Node& node) { return (node.isFree == true); });
+            [](const Node<Type>& node) { return (node.isFree == true); });
 
         if(result == _nodes.end())
             return nullptr;

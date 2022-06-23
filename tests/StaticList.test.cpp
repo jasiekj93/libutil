@@ -6,14 +6,14 @@
  * @details
  */
 
-#include <libutil/stat/List.hpp>
+#include <libutil/List.hpp>
 
 #include <CppUTest/CommandLineTestRunner.h>
 
 using namespace util;
 
 static constexpr size_t SIZE = 5;
-using TestList = stat::List<int, SIZE>;
+using TestList = SList<int, SIZE>;
 
 
 TEST_GROUP(StaticListTest)

@@ -57,7 +57,6 @@ namespace util
     class Array
     {
     public:
-        Array();
         explicit Array(size_t = 0);
         explicit Array(std::initializer_list<T>);
         explicit Array(const T*);
