@@ -68,12 +68,6 @@ namespace util
 
 	template<class T, size_t S>
 	using SBuffer = BufferBase<T, Array<T, S>>;
-
-    template<class T>
-    using Vector = Buffer<T>;
-
-	template<class T, size_t S>
-    using SVector = SBuffer<T, S>;
 }
 
 #include <libutil/Buffer.tpp>
