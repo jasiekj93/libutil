@@ -59,9 +59,9 @@ namespace util
     {
     public:
         explicit Array(size_t = 0);
-        explicit Array(std::initializer_list<T>);
-        explicit Array(const T*);
-        explicit Array(const Span<T>&);
+        Array(std::initializer_list<T>);
+        Array(const T*);
+        Array(const Span<T>&);
         Array(const Array&);
 
         Array& operator=(const Array&);
