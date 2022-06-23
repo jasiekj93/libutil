@@ -9,27 +9,50 @@
  */
 
 #include <cstdint>
-#include <cstddef>
 #include <cstring>
-#include <array>
+#include <libutil/Array.hpp>
 #include <algorithm>
+
+using byte = uint8_t;
+using hword = uint16_t;
+using word = uint32_t;
+using dword = uint64_t;
+
+static constexpr byte BYTE_MAX = UINT8_MAX;
+static constexpr hword HWORD_MAX = UINT16_MAX;
+static constexpr word WORD_MAX = UINT32_MAX;
+static constexpr dword DWORD_MAX = UINT64_MAX;
 
 namespace util
 {
-    using byte = uint8_t;
-    using hword = uint16_t;
-    using word = uint32_t;
-    using dword = uint64_t;
+    using ::byte;
+    using ::hword;
+    using ::word;
+    using ::dword;
 
-    static constexpr byte BYTE_MAX = UINT8_MAX;
-    static constexpr hword HWORD_MAX = UINT16_MAX;
-    static constexpr word WORD_MAX = UINT32_MAX;
-    static constexpr dword DWORD_MAX = UINT64_MAX;
+    using ::BYTE_MAX;
+    using ::HWORD_MAX;
+    using ::WORD_MAX;
+    using ::DWORD_MAX;
+
+    template<size_t S>
+    using ByteArray = Array<byte, S>;
+    template<size_t S>
+    using HwordArray = Array<hword, S>;
+    template<size_t S>
+    using WordArray = Array<word, S>;
+    template<size_t S>
+    using DwordArray = Array<dword, S>;
+
+	using ByteSpan = Span<byte>;
+	using HwordSpan = Span<hword>;
+	using WordSpan = Span<word>;
+	using DwordSpan = Span<dword>;
 
     template<class T>
-    inline std::array<byte, sizeof(T)> toBytes(const T &object)
+    inline ByteArray<sizeof(T)> toBytes(const T &object)
     {
-        std::array<byte, sizeof(T)> result;
+        ByteArray<sizeof(T)> result;
         std::memcpy(result.data(), &object, sizeof(T));
         return result;
     }
@@ -41,9 +64,9 @@ namespace util
     }
 
     template<class T>
-    inline std::array<byte, sizeof(T)> toBytesReversed(const T &object)
+    inline ByteArray<sizeof(T)> toBytesReversed(const T &object)
     {
-        std::array<byte, sizeof(T)> result;
+        ByteArray<sizeof(T)> result;
         std::memcpy(result.data(), &object, sizeof(T));
         std::reverse(result.begin(), result.end());
 
@@ -66,7 +89,7 @@ namespace util
     }
 
     template<class T>
-    inline T fromBytes(const std::array<byte, sizeof(T)> &buffer)
+    inline T fromBytes(const ByteArray<sizeof(T)> &buffer)
     {
         T result;
         std::memcpy(&result, buffer.data(), sizeof(T));
@@ -84,7 +107,7 @@ namespace util
     }
 
     template<class T>
-    inline T fromBytesReversed(const std::array<byte, sizeof(T)> &buffer)
+    inline T fromBytesReversed(const ByteArray<sizeof(T)> &buffer)
     {
         T result;
         auto pointer = (byte *)&result;
@@ -94,11 +117,11 @@ namespace util
     }
     
     inline auto bytesToHword(const byte *b) { return fromBytesReversed<hword>(b); }
-    inline auto bytesToHword(const std::array<byte, sizeof(hword)> &b) { return fromBytesReversed<hword>(b); }
+    inline auto bytesToHword(const ByteArray<sizeof(hword)> &b) { return fromBytesReversed<hword>(b); }
     inline auto bytesToWord(const byte *b) { return fromBytesReversed<word>(b); }
-    inline auto bytesToWord(const std::array<byte, sizeof(word)> &b) { return fromBytesReversed<word>(b); }
+    inline auto bytesToWord(const ByteArray<sizeof(word)> &b) { return fromBytesReversed<word>(b); }
     inline auto bytesToDword(const byte *b) { return fromBytesReversed<dword>(b); }
-    inline auto bytesToDword(const std::array<byte, sizeof(dword)> &b) { return fromBytesReversed<dword>(b); }
+    inline auto bytesToDword(const ByteArray<sizeof(dword)> &b) { return fromBytesReversed<dword>(b); }
 
     inline auto hwordToBytes(hword v) { return toBytesReversed<hword>(v); }
     inline auto hwordToBytes(byte *b, hword v) { return toBytesReversed<hword>(b, v); }

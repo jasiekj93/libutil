@@ -7,6 +7,7 @@
  */
 
 #include <libutil/MessageQueue.hpp>
+#include <libutil/DataUnit.hpp>
 
 #include <CppUTest/CommandLineTestRunner.h>
 

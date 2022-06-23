@@ -146,6 +146,6 @@ namespace util
 	template<class T, class C>
 	bool BufferBase<T, C>::insert(size_t index, const T *data, size_t size) 
 	{ 
-		return insert(index, ByteSpan{ data, size }); 
+		return insert(index, Span<T>{ data, size }); 
 	}
 }

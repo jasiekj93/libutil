@@ -7,6 +7,7 @@
  */
 
 #include <libutil/Queue.hpp>
+#include <libutil/DataUnit.hpp>
 
 #include <CppUTest/CommandLineTestRunner.h>
 

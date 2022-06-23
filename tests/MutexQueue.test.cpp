@@ -7,6 +7,7 @@
  */
 
 #include <libutil/MutexQueue.hpp>
+#include <libutil/DataUnit.hpp>
 
 #include <CppUTest/CommandLineTestRunner.h>
 

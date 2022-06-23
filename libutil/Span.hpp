@@ -9,7 +9,6 @@
 **/
 
 #include <cstddef>
-#include <libutil/DataUnit.hpp>
 #include <algorithm>
 
 namespace util
@@ -41,11 +40,6 @@ namespace util
 		const T* _data;
 		size_t _size;
 	};
-
-	using ByteSpan = Span<byte>;
-	using HwordSpan = Span<hword>;
-	using WordSpan = Span<word>;
-	using DwordSpan = Span<dword>;
 }
 
 #include <libutil/Span.tpp>
