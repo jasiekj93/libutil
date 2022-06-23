@@ -36,6 +36,9 @@ namespace util
 		bool shrink(size_t size);
 		bool shiftLeft(size_t startPosition, size_t count);
 
+        bool operator==(const BufferBase&) const;
+        constexpr bool operator!=(const BufferBase& b) const { return !(*this == b); }
+
 		constexpr auto data() const { return _storage.data(); }
 		constexpr auto data() { return _storage.data(); }
 		constexpr auto data(size_t i) const { return _storage.data() + i; }

@@ -148,4 +148,13 @@ namespace util
 	{ 
 		return insert(index, Span<T>{ data, size }); 
 	}
+
+    template<class T, class C>
+    bool BufferBase<T, C>::operator==(const BufferBase& buffer) const
+    {
+        if(_count != buffer._count)
+            return false;
+
+        return std::equal(cbegin(), cbegin() + _count, buffer.cbegin());
+    }
 }
