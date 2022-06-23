@@ -37,10 +37,11 @@ template<class T>
         _size = c.size();
 
         std::copy(c.cbegin(), c.cend(), this->begin());
+        return *this;
     }
 
     template<class T>
-    bool DynArray<T>::operator==(const DynArray& c)
+    bool DynArray<T>::operator==(const DynArray& c) const
     {
         return std::equal(c.cbegin(), c.cend(), this->begin());
     }
@@ -79,10 +80,11 @@ template<class T>
     Array<T, SIZE>& Array<T, SIZE>::operator=(const Array& c)
     {
         std::copy(c.cbegin(), c.cend(), this->begin());
+        return *this;
     }
 
     template<class T, size_t SIZE>
-    bool Array<T, SIZE>::operator==(const Array& c)
+    bool Array<T, SIZE>::operator==(const Array& c) const
     {
         return std::equal(c.cbegin(), c.cend(), this->begin());
     }
