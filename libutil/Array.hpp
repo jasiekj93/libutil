@@ -17,7 +17,8 @@ namespace util
         DynArray(const DynArray&);
 
         DynArray& operator=(const DynArray&);
-        bool operator==(const DynArray&);
+        bool operator==(const DynArray&) const;
+        constexpr bool operator!=(const DynArray& a) const { return !(*this == a); } 
 
         constexpr T& at(size_t i) { return _data[i]; }
         constexpr const T& at(size_t i) const { return _data[i]; }
@@ -64,7 +65,8 @@ namespace util
         Array(const Array&);
 
         Array& operator=(const Array&);
-        bool operator==(const Array&);
+        bool operator==(const Array&) const;
+        constexpr bool operator!=(const Array& a) const { return !(*this == a); }
 
         constexpr T& at(size_t i) { return _data[i]; }
         constexpr const T& at(size_t i) const { return _data[i]; }
