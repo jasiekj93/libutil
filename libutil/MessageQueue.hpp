@@ -16,7 +16,7 @@ namespace util
 		class MessageQueueBase
 		{		
 		public:
-			MessageQueueBase(size_t size);
+			MessageQueueBase(size_t = 0);
 		
 			virtual bool enqueue(const T&);
 			virtual bool enqueue(const Span<T>&);

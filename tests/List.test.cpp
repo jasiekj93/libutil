@@ -1,5 +1,5 @@
 /**
- * @file StaticList.test.cpp
+ * @file List.test.cpp
  * @author Adrian Szczepanski
  * @date 11-08-2021
  * @brief 
@@ -16,11 +16,11 @@ static constexpr size_t SIZE = 5;
 using TestList = SList<int, SIZE>;
 
 
-TEST_GROUP(StaticListTest)
+TEST_GROUP(ListTest)
 {
 };
 
-TEST(StaticListTest, Empty)
+TEST(ListTest, Empty)
 {
     TestList list;
 
@@ -31,7 +31,7 @@ TEST(StaticListTest, Empty)
     CHECK_FALSE(list.isFull());
 }
 
-TEST(StaticListTest, PushBack_OneItem)
+TEST(ListTest, PushBack_OneItem)
 {
     TestList list;
     int value = 5;
@@ -46,7 +46,7 @@ TEST(StaticListTest, PushBack_OneItem)
     CHECK(nullptr == list[1]);
 }
 
-TEST(StaticListTest, PushBack_TwoItems)
+TEST(ListTest, PushBack_TwoItems)
 {
     TestList list;
     int value1 = 5;
@@ -64,7 +64,7 @@ TEST(StaticListTest, PushBack_TwoItems)
     CHECK(nullptr == list[2]);
 }
 
-TEST(StaticListTest, PushBack_MoreThanCount)
+TEST(ListTest, PushBack_MoreThanCount)
 {
     TestList list;
     int value = 5;
@@ -80,7 +80,7 @@ TEST(StaticListTest, PushBack_MoreThanCount)
     CHECK(list.isFull());
 }
 
-TEST(StaticListTest, PushFront_OneItem)
+TEST(ListTest, PushFront_OneItem)
 {
     TestList list;
     int value = 5;
@@ -95,7 +95,7 @@ TEST(StaticListTest, PushFront_OneItem)
     CHECK(nullptr == list[1]);
 }
 
-TEST(StaticListTest, PushFront_TwoItems)
+TEST(ListTest, PushFront_TwoItems)
 {
     TestList list;
     int value1 = 5;
@@ -113,7 +113,7 @@ TEST(StaticListTest, PushFront_TwoItems)
     CHECK(nullptr == list[2]);
 }
 
-TEST(StaticListTest, PushFront_MoreThanCount)
+TEST(ListTest, PushFront_MoreThanCount)
 {
     TestList list;
     int value = 5;
@@ -129,7 +129,7 @@ TEST(StaticListTest, PushFront_MoreThanCount)
     CHECK(list.isFull());
 }
 
-TEST(StaticListTest, PopBack_OneItem)
+TEST(ListTest, PopBack_OneItem)
 {
     TestList list;
     int value = 5;
@@ -144,7 +144,7 @@ TEST(StaticListTest, PopBack_OneItem)
     CHECK(nullptr == list[0]);
 }
 
-TEST(StaticListTest, PopBack_AndPush)
+TEST(ListTest, PopBack_AndPush)
 {
     TestList list;
     int value = 5;
@@ -157,7 +157,7 @@ TEST(StaticListTest, PopBack_AndPush)
     CHECK_EQUAL((value + 1), *list[0]);
 }
 
-TEST(StaticListTest, PopFront_OneItem)
+TEST(ListTest, PopFront_OneItem)
 {
     TestList list;
     int value = 5;
@@ -172,7 +172,7 @@ TEST(StaticListTest, PopFront_OneItem)
     CHECK(nullptr == list[0]);
 }
 
-TEST(StaticListTest, PopFront_AndPush)
+TEST(ListTest, PopFront_AndPush)
 {
     TestList list;
     int value = 5;

@@ -17,7 +17,7 @@ namespace util
 	class MutexQueueBase : public QueueBase<T, Buffer>
 	{
 	public:
-		explicit MutexQueueBase(size_t);
+		explicit MutexQueueBase(size_t = 0);
 
 		bool enqueue(const T&) override;
 		bool enqueue(const Span<T>&) override;

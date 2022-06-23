@@ -16,7 +16,7 @@ namespace util
 	class QueueBase
 	{
 	public:
-		explicit QueueBase(size_t);
+		explicit QueueBase(size_t = 0);
 
 		virtual inline bool enqueue(const T& element) { return _buffer.add(element); }
 		virtual inline bool enqueue(const Span<T>& buffer) { return _buffer.add(buffer); }
