@@ -1,7 +1,7 @@
 #pragma once
 
 #include <libutil/MessageQueue.hpp>
-#include <mutex>
+#include <libutil/Mutex.hpp>
 
 namespace util
 {
@@ -23,7 +23,7 @@ namespace util
 			size_t tryDequeueAll();
 
         private:
-			std::mutex _mutex;
+			util::Mutex _mutex;
 		};
 
     template<typename T>

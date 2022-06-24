@@ -8,7 +8,7 @@
  * @details
 **/
 
-#include <mutex>
+#include <libutil/Mutex.hpp>
 #include <libutil/Queue.hpp>
 
 namespace util
@@ -35,7 +35,7 @@ namespace util
 		const T* data(size_t index) const override { return nullptr; }
 
 	private:
-		std::mutex _mutex;
+		util::Mutex _mutex;
 	};
 
     template<typename T>
