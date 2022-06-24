@@ -32,8 +32,10 @@ namespace util
         constexpr const T* data() const { return _data.get(); }
 
         constexpr T* begin() { return _data.get(); }
+        constexpr const T* begin() const { return _data.get(); }
         constexpr const T* cbegin() const { return _data.get(); }
         constexpr T* end() { return _data.get() + _size; }
+        constexpr const T* end() const { return _data.get() + _size; }
         constexpr const T* cend() const { return _data.get() + _size; }
         constexpr T* rbegin() { return _data.get() + _size - 1; }
         constexpr const T* crbegin() const { return _data.get() + _size - 1; }
@@ -80,8 +82,10 @@ namespace util
         constexpr const T* data() const { return _data; }
 
         constexpr T* begin() { return _data; }
+        constexpr const T* begin() const { return _data; }
         constexpr const T* cbegin() const { return _data; }
         constexpr T* end() { return _data + SIZE; }
+        constexpr const T* end() const { return _data + SIZE; }
         constexpr const T* cend() const { return _data + SIZE; }
         constexpr T* rbegin() { return _data + SIZE - 1; }
         constexpr const T* crbegin() const { return _data + SIZE - 1; }

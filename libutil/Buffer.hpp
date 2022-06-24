@@ -57,7 +57,9 @@ namespace util
         constexpr auto& back() { return _storage[_count - 1]; }
         constexpr auto& back() const { return _storage[_count - 1]; }
 		constexpr auto begin() { return _storage.begin(); }
+		constexpr auto begin() const { return _storage.begin(); }
 		constexpr auto end() { return _storage.end(); }
+		constexpr auto end() const { return _storage.end(); }
 		constexpr auto cbegin() const { return _storage.cbegin(); }
 		constexpr auto cend() const { return _storage.cend(); }
 
