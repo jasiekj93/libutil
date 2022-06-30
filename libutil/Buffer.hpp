@@ -48,7 +48,7 @@ namespace util
 		constexpr bool isFull() const { return (_count == _storage.size()); }
 		constexpr bool isEmpty() const { return (_count == 0); }
 		constexpr bool isNotEmpty() const { return (_count != 0); }
-		constexpr auto toSpan() const { return _storage.toSpan(); }
+		constexpr auto toSpan() const { return Span<T>{ data(), count() }; }
 
 		constexpr auto operator[](size_t i) const { return _storage[i]; }
 		constexpr auto operator[](size_t i) { return _storage[i]; }
@@ -58,10 +58,10 @@ namespace util
         constexpr auto& back() const { return _storage[_count - 1]; }
 		constexpr auto begin() { return _storage.begin(); }
 		constexpr auto begin() const { return _storage.begin(); }
-		constexpr auto end() { return _storage.end(); }
-		constexpr auto end() const { return _storage.end(); }
+		constexpr auto end() { return begin() + count(); }
+		constexpr auto end() const { return begin() + count(); }
 		constexpr auto cbegin() const { return _storage.cbegin(); }
-		constexpr auto cend() const { return _storage.cend(); }
+		constexpr auto cend() const { return cbegin() + count(); }
 
 	private:
         Container _storage;
