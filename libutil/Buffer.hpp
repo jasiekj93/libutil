@@ -50,8 +50,8 @@ namespace util
 		constexpr bool isNotEmpty() const { return (_count != 0); }
 		constexpr auto toSpan() const { return Span<T>{ data(), count() }; }
 
-		constexpr auto operator[](size_t i) const { return _storage[i]; }
-		constexpr auto operator[](size_t i) { return _storage[i]; }
+		constexpr auto& operator[](size_t i) const { return _storage[i]; }
+		constexpr auto& operator[](size_t i) { return _storage[i]; }
         constexpr auto& front() { return _storage.front(); }
         constexpr auto& front() const { return _storage.front(); }
         constexpr auto& back() { return _storage[_count - 1]; }
