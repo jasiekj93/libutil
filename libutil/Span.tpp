@@ -12,8 +12,8 @@ namespace util
     template<class T> 
     bool Span<T>::operator==(const Span<T> &span)
     {
-			if(this->size == span.size)
-                return std::equal(this->data, this->data + this->size, span.data);
+			if(this->_size == span._size)
+                return std::equal(this->_data, this->_data + this->_size, span._data);
 			else
 				return false;
     }
