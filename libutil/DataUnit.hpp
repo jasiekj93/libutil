@@ -13,27 +13,17 @@
 #include <libutil/Array.hpp>
 #include <algorithm>
 
-using byte = uint8_t;
-using hword = uint16_t;
-using word = uint32_t;
-using dword = uint64_t;
-
-static constexpr byte BYTE_MAX = UINT8_MAX;
-static constexpr hword HWORD_MAX = UINT16_MAX;
-static constexpr word WORD_MAX = UINT32_MAX;
-static constexpr dword DWORD_MAX = UINT64_MAX;
-
 namespace util
 {
-    using ::byte;
-    using ::hword;
-    using ::word;
-    using ::dword;
+    using byte = uint8_t;
+    using hword = uint16_t;
+    using word = uint32_t;
+    using dword = uint64_t;
 
-    using ::BYTE_MAX;
-    using ::HWORD_MAX;
-    using ::WORD_MAX;
-    using ::DWORD_MAX;
+    static constexpr byte BYTE_MAX = UINT8_MAX;
+    static constexpr hword HWORD_MAX = UINT16_MAX;
+    static constexpr word WORD_MAX = UINT32_MAX;
+    static constexpr dword DWORD_MAX = UINT64_MAX;
 
     template<size_t S>
     using ByteArray = Array<byte, S>;
@@ -130,3 +120,15 @@ namespace util
     inline auto dwordToBytes(dword v) { return toBytesReversed<dword>(v); }
     inline auto dwordToBytes(byte *b, dword v) { return toBytesReversed<dword>(b, v); }
 }
+
+#ifdef LIBUTIL_USE_GLOBAL_DATAUNIT
+using byte = util::byte;
+using hword = util::hword;
+using word = util::word;
+using dword = util::dword;
+
+using BYTE_MAX = util::BYTE_MAX;
+using HWORD_MAX = util::HWORD_MAX;
+using WORD_MAX = util::WORD_MAX;
+using DWORD_MAX = util::DWORD_MAX;
+#endif
