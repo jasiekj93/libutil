@@ -127,8 +127,8 @@ using hword = util::hword;
 using word = util::word;
 using dword = util::dword;
 
-using BYTE_MAX = util::BYTE_MAX;
-using HWORD_MAX = util::HWORD_MAX;
-using WORD_MAX = util::WORD_MAX;
-using DWORD_MAX = util::DWORD_MAX;
+static constexpr byte BYTE_MAX = UINT8_MAX;
+static constexpr hword HWORD_MAX = UINT16_MAX;
+static constexpr word WORD_MAX = UINT32_MAX;
+static constexpr dword DWORD_MAX = UINT64_MAX;
 #endif
