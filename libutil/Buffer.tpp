@@ -31,13 +31,13 @@ namespace util
 
 	template<class T, class C>
 	BufferBase<T, C>::BufferBase(const Span<T>& span)
-		: BufferBase(0, span)
+		: BufferBase(span.size(), span)
 	{
 	}
 
 	template<class T, class C>
 	BufferBase<T, C>::BufferBase(std::initializer_list<T> list)
-		: BufferBase(0, list)
+		: BufferBase(list.size(), list)
 	{
 	}
 

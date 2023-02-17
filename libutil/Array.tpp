@@ -33,7 +33,7 @@ template<class T>
     template<class T>
     DynArray<T>& DynArray<T>::operator=(const DynArray& c)
     {
-        _data.reset(std::make_unique<T[]>(c.size()));
+        _data.reset(new T[c.size()]);
         _size = c.size();
 
         std::copy(c.cbegin(), c.cend(), this->begin());
