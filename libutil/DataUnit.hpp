@@ -58,7 +58,7 @@ namespace util
     {
         ByteArray<sizeof(T)> result;
         util::memcpy(result.data(), &object, sizeof(T));
-        std::reverse(result.begin(), result.end());
+        util::reverse(result.begin(), result.end());
 
         return result;
     }
@@ -67,7 +67,7 @@ namespace util
     inline void toBytesReversed(byte *out, const T &object)
     {
         util::memcpy(out, &object, sizeof(T));
-        std::reverse(out, out + sizeof(T));
+        util::reverse(out, out + sizeof(T));
     }
 
     template<class T>
@@ -92,7 +92,7 @@ namespace util
         T result;
         auto pointer = (byte *)&result;
         util::memcpy(pointer, buffer, sizeof(T));
-        std::reverse(pointer, pointer + sizeof(T));
+        util::reverse(pointer, pointer + sizeof(T));
         return result;
     }
 
@@ -102,7 +102,7 @@ namespace util
         T result;
         auto pointer = (byte *)&result;
         util::memcpy(pointer, buffer.data(), sizeof(T));
-        std::reverse(pointer, pointer + sizeof(T));
+        util::reverse(pointer, pointer + sizeof(T));
         return result;
     }
     

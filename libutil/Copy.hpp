@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <cstddef>
 #include <cstring>
+#include <algorithm>
 
 namespace util
 {
@@ -56,6 +57,25 @@ namespace util
         }
     #else
         std::copy(first, last, result);
+    #endif
+    }
+
+    template<typename T>
+    constexpr void reverse(T* first, T* last)
+    {
+    #ifdef NOT_USE_STD
+        last--;
+        while (first < last)
+        {
+            T temp = *first;
+            *first = *last;
+            *last = temp;
+
+            first++;
+            last--;
+        } 
+    #else
+        std::reverse(first, last);
     #endif
     }
 }
