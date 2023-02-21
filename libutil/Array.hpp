@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <memory>
 #include <libutil/Span.hpp>
+#include <libutil/Copy.hpp>
 
 namespace util
 {

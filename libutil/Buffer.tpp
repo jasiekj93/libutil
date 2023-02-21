@@ -99,7 +99,7 @@ namespace util
 		if (endPosition > _count)
 			return false;
 
-        std::copy(data() + endPosition, 
+        util::copy(data() + endPosition, 
             data() + _count, 
             data() + startPosition);
 
@@ -116,11 +116,11 @@ namespace util
 		if (index > _count)
 			return false;
 
-        std::copy(data() + index, 
+        util::copy(data() + index, 
             data() + _count, 
             data() + index + span.size());
 
-        std::copy(span.begin(), span.end(), data() + index);
+        util::copy(span.begin(), span.end(), data() + index);
 		_count += span.size();
 
 		return true;
@@ -135,7 +135,7 @@ namespace util
 		if (index >= _count)
 			return false;
 
-        std::copy(data() + index, 
+        util::copy(data() + index, 
             data() + _count,
             data() + index + 1);
 		_storage[index] = object;

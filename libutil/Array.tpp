@@ -13,21 +13,21 @@ template<class T>
     DynArray<T>::DynArray(size_t size, std::initializer_list<T> list)
         : DynArray(size)
     {
-        std::copy(list.begin(), list.end(), _data.get());
+        util::copy(list.begin(), list.end(), _data.get());
     }
 
     template<class T>
     DynArray<T>::DynArray(size_t size, const T* pointer)
         : DynArray(size)
     {
-        std::copy(pointer, pointer + size, _data.get());
+        util::copy(pointer, pointer + size, _data.get());
     }
 
     template<class T>
     DynArray<T>::DynArray(const DynArray& arr)
         : DynArray(arr._size)
     {
-        std::copy(arr.cbegin(), arr.cend(), _data.get());
+        util::copy(arr.cbegin(), arr.cend(), _data.get());
     }
 
     template<class T>
@@ -36,7 +36,7 @@ template<class T>
         _data.reset(new T[c.size()]);
         _size = c.size();
 
-        std::copy(c.cbegin(), c.cend(), this->begin());
+        util::copy(c.cbegin(), c.cend(), this->begin());
         return *this;
     }
 
@@ -55,31 +55,31 @@ template<class T>
     template<class T, size_t SIZE>
     inline Array<T, SIZE>::Array(std::initializer_list<T> list)
     {
-        std::copy(list.begin(), list.end(), _data);
+        util::copy(list.begin(), list.end(), _data);
     }
 
     template<class T, size_t SIZE>
     inline Array<T, SIZE>::Array(const T* pointer)
     {
-        std::copy(pointer, pointer + SIZE, _data);
+        util::copy(pointer, pointer + SIZE, _data);
     }
 
     template<class T, size_t SIZE>
     inline Array<T, SIZE>::Array(const Span<T>& span)
     {
-        std::copy(span.begin(), span.end(), _data);
+        util::copy(span.begin(), span.end(), _data);
     }
 
     template<class T, size_t SIZE>
     Array<T, SIZE>::Array(const Array& arr)
     {
-        std::copy(arr.cbegin(), arr.cend(), _data);
+        util::copy(arr.cbegin(), arr.cend(), _data);
     }
 
     template<class T, size_t SIZE>
     Array<T, SIZE>& Array<T, SIZE>::operator=(const Array& c)
     {
-        std::copy(c.cbegin(), c.cend(), this->begin());
+        util::copy(c.cbegin(), c.cend(), this->begin());
         return *this;
     }
 

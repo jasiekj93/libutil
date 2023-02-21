@@ -47,7 +47,7 @@ namespace util
 		if (destination == nullptr)
 			return false;
 
-        std::copy(_buffer.begin(), _buffer.begin() + count, destination);
+        util::copy(_buffer.begin(), _buffer.begin() + count, destination);
 		_buffer.shiftLeft(0, count);
 
 		return true;

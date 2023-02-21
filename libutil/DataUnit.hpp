@@ -43,21 +43,21 @@ namespace util
     inline ByteArray<sizeof(T)> toBytes(const T &object)
     {
         ByteArray<sizeof(T)> result;
-        std::memcpy(result.data(), &object, sizeof(T));
+        util::memcpy(result.data(), &object, sizeof(T));
         return result;
     }
 
     template<class T>
     inline void toBytes(byte *out, const T &object)
     {
-        std::memcpy(out, &object, sizeof(T));
+        util::memcpy(out, &object, sizeof(T));
     }
 
     template<class T>
     inline ByteArray<sizeof(T)> toBytesReversed(const T &object)
     {
         ByteArray<sizeof(T)> result;
-        std::memcpy(result.data(), &object, sizeof(T));
+        util::memcpy(result.data(), &object, sizeof(T));
         std::reverse(result.begin(), result.end());
 
         return result;
@@ -66,7 +66,7 @@ namespace util
     template<class T>
     inline void toBytesReversed(byte *out, const T &object)
     {
-        std::memcpy(out, &object, sizeof(T));
+        util::memcpy(out, &object, sizeof(T));
         std::reverse(out, out + sizeof(T));
     }
 
@@ -74,7 +74,7 @@ namespace util
     inline T fromBytes(const byte *buffer)
     {
         T result;
-        std::memcpy(&result, buffer, sizeof(T));
+        util::memcpy(&result, buffer, sizeof(T));
         return result;
     }
 
@@ -82,7 +82,7 @@ namespace util
     inline T fromBytes(const ByteArray<sizeof(T)> &buffer)
     {
         T result;
-        std::memcpy(&result, buffer.data(), sizeof(T));
+        util::memcpy(&result, buffer.data(), sizeof(T));
         return result;
     }
     
@@ -91,7 +91,7 @@ namespace util
     {
         T result;
         auto pointer = (byte *)&result;
-        std::memcpy(pointer, buffer, sizeof(T));
+        util::memcpy(pointer, buffer, sizeof(T));
         std::reverse(pointer, pointer + sizeof(T));
         return result;
     }
@@ -101,7 +101,7 @@ namespace util
     {
         T result;
         auto pointer = (byte *)&result;
-        std::memcpy(pointer, buffer.data(), sizeof(T));
+        util::memcpy(pointer, buffer.data(), sizeof(T));
         std::reverse(pointer, pointer + sizeof(T));
         return result;
     }
