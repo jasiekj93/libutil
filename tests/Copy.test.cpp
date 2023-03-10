@@ -69,3 +69,19 @@ TEST(CopyTest, memcpy)
 
     CHECK(output == input);
 }
+
+TEST(CopyTest, strncat)
+{
+    char buffer[50] = "Hello ";
+
+    CHECK_EQUAL(buffer, util::strncat(buffer, "World!", 43));
+    STRCMP_EQUAL("Hello World!", buffer);
+}
+
+TEST(CopyTest, strncat_lessSize)
+{
+    char buffer[50] = "Hello ";
+
+    CHECK_EQUAL(buffer, util::strncat(buffer, "World!", 1));
+    STRCMP_EQUAL("Hello W", buffer);
+}

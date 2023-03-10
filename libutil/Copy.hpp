@@ -44,6 +44,27 @@ namespace util
     #endif
     }
 
+    constexpr char* strncat(char* dest, const char* src, size_t size)
+    {
+    #ifdef NOT_USE_STD 
+        auto prt = dest + strlen(dest);
+    
+        while (*src != '\0' && size > 0) 
+        {
+            *ptr++ = *src++;
+            size--;
+        }
+    
+        // null terminate destination string
+        *ptr = '\0';
+    
+        // the destination is returned by standard `strcat()`
+        return dest;
+    #else
+        return std::strncat(dest, src, size);
+    #endif
+    }
+
     template<typename T>
     constexpr void copy(const T* first, const T* last, T* result)
     {
