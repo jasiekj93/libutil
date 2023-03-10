@@ -21,7 +21,7 @@ namespace util
         auto destination = (uint8_t*)dest;
         auto source = (const uint8_t*)src;
 
-        for(auto i = 0; i < size; i++)
+        for(auto i = 0U; i < size; i++)
             destination[i] = source[i];
 
         return dest;
@@ -35,7 +35,7 @@ namespace util
     #ifdef NOT_USE_STD 
         auto destination = (uint8_t*)dest;
 
-        for(auto i = 0; i < size; i++)
+        for(auto i = 0U; i < size; i++)
             destination[i] = value;
 
         return dest;
@@ -47,9 +47,9 @@ namespace util
     constexpr char* strncat(char* dest, const char* src, size_t size)
     {
     #ifdef NOT_USE_STD 
-        auto prt = dest + strlen(dest);
+        auto ptr = dest + strlen(dest);
     
-        while (*src != '\0' && size > 0) 
+        while (*src != '\0' && size > 0U) 
         {
             *ptr++ = *src++;
             size--;

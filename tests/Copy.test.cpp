@@ -6,6 +6,8 @@
  * @details
  */
 
+#define NOT_USE_STD
+
 #include <libutil/Copy.hpp>
 #include <libutil/Array.hpp>
 
@@ -16,8 +18,6 @@ using namespace util;
 TEST_GROUP(CopyTest)
 {
 };
-
-#define NOT_USE_STD
 
 TEST(CopyTest, reverse_odd)
 {
